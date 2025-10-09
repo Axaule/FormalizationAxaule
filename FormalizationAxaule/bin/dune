@@ -1,0 +1,4 @@
+(executable
+ (public_name FormalizationAxaule)
+ (name main)
+ (libraries FormalizationAxaule))
