@@ -27,11 +27,19 @@ let zerointeger = '0'(('_')?'0')*
 let following = (('_')?digit)*
 let decinteger = ['1'-'9']following
 let decimal = zerointeger | decinteger
+
+(*Identfilers*)
+let letter = ['A'-'Z''a'-'z''_']
+let digit =['0'-'9']
+let ident = letter(letter | digit |'_')*
+
+
 let comment = '(' '*' [^'*']* ('*' (('*'*)|([^'*'')'][^'*']*)))* '*' ')'
 (* To keep things simple, strings here only contain chars, nums and blanks 
   Could be refined *)
 let stringchar = alph|num|' '
 let string = '"' stringchar* '"'     
+
 
 rule token = parse
  [' ' '\t']
@@ -67,7 +75,7 @@ rule token = parse
 | "int"        {TP(IntT)}
 
 
-| "foo" as i  {IDENTIFIER i}
+| ident as i  {IDENTIFIER i}
 
 
 | _  {Printf.printf "ERROR: unrecogized symbol '%s'\n" (Lexing.lexeme lexbuf);
